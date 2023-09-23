@@ -30,8 +30,8 @@ Window::Window()
 
 	DWORD style = WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU;
 
-	this->width = 1600;
-	this->height = 900;
+	this->width = 900;
+	this->height = 500;
 
 	RECT rect;
 	rect.left = 100;
@@ -105,8 +105,10 @@ void Window::run()
 
 void Window::setPixel(int x, int y, u32 color)
 {
+	int sx = this->width/2 + x;
+	int sy = this->height/2 - y;
 	u32 *pixel = (u32 *)memory;
-	pixel += y * this->width + x;
+	pixel += sy * this->width + sx;
 	*pixel = color;
 }
 
@@ -116,5 +118,21 @@ void Window::setBackground(u32 color)
 	for (int i = 0; i < this->width * this->height; i++)
 	{
 		*pixel++ = color;
+	}
+}
+
+void drawLine()
+{
+
+}
+
+void Window::drawRect(int x, int y, int width, int height, u32 color)
+{
+	for (int i=x; i<width; i++)
+	{
+		for (int j = y; j < height; j++)
+		{
+			setPixel(i, j, color);
+		}
 	}
 }
