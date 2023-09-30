@@ -3,9 +3,12 @@
 
 class Color
 {
+private:
 	uint32_t value;
-
-	Color(uint32_t);
+public:
+	Color();
+	Color(uint32_t hex_color);
+	Color(uint8_t red, uint8_t green, uint8_t blue);
 
 	uint32_t getColor();
 };

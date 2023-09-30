@@ -1,5 +1,22 @@
 #include "Sphere.h"
 
+Sphere::Sphere()
+{
+	this->radius = 0.0f;
+}
+
+Sphere::Sphere(Point3& cntr, float rds, Color& clr)
+{
+	this->center = cntr;
+	this->radius = rds;
+	this->color = clr;
+}
+
+Color Sphere::getSphereColor()
+{
+	return this->color.getColor();
+}
+
 float* Sphere::intersectRaySphere(Point3 O, Point3 D)
 {
 	float* t_array = new float[2];

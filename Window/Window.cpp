@@ -89,6 +89,9 @@ void Window::run()
 	bool running = true;
 	HDC hdc = GetDC(m_hwnd);
 
+	StretchDIBits(hdc, 0, 0, this->width, this->height, 0, 0, this->width, this->height, this->memory,
+		&bitmapInfo, DIB_RGB_COLORS, SRCCOPY);
+
 	while (running)
 	{
 		if (!ProcesMessages())
@@ -96,11 +99,18 @@ void Window::run()
 			running = false;
 		}
 
-		StretchDIBits(hdc, 0, 0, this->width, this->height, 0, 0, this->width, this->height, this->memory,
-			&bitmapInfo, DIB_RGB_COLORS, SRCCOPY);
-
 	}
 
+}
+
+void* Window::getMemory()
+{
+	return this->memory;
+}
+
+void Window::setMemory(void* memory)
+{
+	this->memory = memory;
 }
 
 void Window::setPixel(int x, int y, u32 color)
@@ -119,11 +129,6 @@ void Window::setBackground(u32 color)
 	{
 		*pixel++ = color;
 	}
-}
-
-void drawLine()
-{
-
 }
 
 void Window::drawRect(int x, int y, int width, int height, u32 color)

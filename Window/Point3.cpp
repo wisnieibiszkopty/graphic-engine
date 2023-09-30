@@ -1,5 +1,10 @@
 #include "Point3.h"
 
+Point3::Point3()
+{
+
+}
+
 Point3::Point3(float x_p, float y_p, float z_p) {
 	this->x = x_p;
 	this->y = y_p;

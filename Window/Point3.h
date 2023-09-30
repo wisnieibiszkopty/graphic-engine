@@ -9,6 +9,7 @@ public:
 	float y;
 	float z;
 
+	Point3();
 	Point3(float x_p, float y_p, float z_p);
 
 	float getX();

@@ -2,6 +2,7 @@
 
 #include <Windows.h>
 #include <stdint.h>
+#include <iostream>
 
 typedef uint32_t u32;
 
@@ -18,10 +19,12 @@ public:
 
 	bool ProcesMessages();
 	void run();
-	
+
+	void* getMemory();
+	void setMemory(void* memory);
+
 	void setPixel(int x, int y, u32 color);
 	void setBackground(u32 color);
-	void drawLine();
 	void drawRect(int x, int y, int width, int height, u32 color);
 
 private:
