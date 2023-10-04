@@ -3,6 +3,7 @@
 #include <limits>
 #include <stdint.h>
 #include <iostream>
+#include <random>
 
 #include "Point3.h"
 #include "Color.h"
@@ -40,7 +41,8 @@ public:
 	std::vector<Sphere> getSpheres();
 	Point3 canvasToViewPort(float x, float y);
 	Color rayTrace(Point3 D, float t_min, float t_max);
-	void* render();
+	void render();
+	void renderRandomPixels();
 
 };
 

@@ -14,7 +14,7 @@ LRESULT CALLBACK WindowProc(HWND hwnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	return DefWindowProc(hwnd, uMsg, wParam, lParam);
 }
 
-Window::Window() 
+Window::Window(int w ,int h) 
 	: m_histance(GetModuleHandle(nullptr))
 {
 	const wchar_t* CLASS_NAME = L"Graphic engine";
@@ -30,9 +30,10 @@ Window::Window()
 
 	DWORD style = WS_CAPTION | WS_MINIMIZEBOX | WS_SYSMENU;
 
-	this->width = 900;
-	this->height = 500;
+	this->width = w;
+	this->height = h;
 
+	// rect left and top define how far from left top corner will window show
 	RECT rect;
 	rect.left = 100;
 	rect.top = 100;
@@ -49,7 +50,7 @@ Window::Window()
 
 	ShowWindow(m_hwnd, SW_SHOW);
 
-	memory = VirtualAlloc(0, this->height*this->width*4, MEM_RESERVE|MEM_COMMIT, PAGE_READWRITE);
+	memory = VirtualAlloc(0, this->height*this->width*8, MEM_RESERVE|MEM_COMMIT, PAGE_READWRITE);
 
 	this->bitmapInfo.bmiHeader.biSize = sizeof(this->bitmapInfo.bmiHeader);
 	this->bitmapInfo.bmiHeader.biWidth = this->width;

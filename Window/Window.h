@@ -12,7 +12,7 @@ class Window
 {
 
 public:
-	Window();
+	Window(int w, int h);
 	Window(const Window&) = delete;
 	Window& operator =(const Window&) = delete;
 	~Window();

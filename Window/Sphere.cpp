@@ -30,8 +30,8 @@ float* Sphere::intersectRaySphere(Point3 O, Point3 D)
 	float discriminant = b * b - 4 * a * c;
 	if (discriminant < 0)
 	{
-		t_array[0] = 1000;
-		t_array[1] = 1000;
+		t_array[0] = std::numeric_limits<float>::infinity();
+		t_array[1] = std::numeric_limits<float>::infinity();
 	}
 	else
 	{
