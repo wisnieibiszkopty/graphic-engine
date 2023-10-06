@@ -5,7 +5,7 @@ Graphics::Graphics()
 	this->infinity = std::numeric_limits<float>::infinity();
 }
 
-Graphics::Graphics(void* memory, Point3 c, int cw, int ch)
+Graphics::Graphics(void* memory, Point3& c, int cw, int ch)
 {
 	this->camera = c;
 	this->cw = cw;
@@ -26,21 +26,49 @@ void Graphics::setPixel(int x, int y, u32 color)
 	*pixel = color;
 }
 
+void Graphics::addAmbientLight(AmbientLight& ambientLight)
+{
+	this->al = ambientLight;
+}
+
+void Graphics::addPointLight(PointLight& pointLight)
+{
+	this->pl = pointLight;
+}
+
 void Graphics::addSphereToScene(Sphere& sphere)
 {
 	this->spheres.push_back(sphere);
 }
 
+void Graphics::addLight(Light* light)
+{
+	this->lights.push_back(light);
+}
+
 std::vector<Sphere> Graphics::getSpheres()
 {
-	return this->spheres;
+	return spheres;
+}
+
+std::vector<Light *> Graphics::getLights()
+{
+	return lights;
 }
 
 Point3 Graphics::canvasToViewPort(float x, float y) {
 	return Point3(x*this->vw/this->cw, y*this->vh/this->ch, d);
 }
 
-Color Graphics::rayTrace(Point3 D, float t_min, float t_max)
+float Graphics::computeLighting(Point3& P, Point3& N)
+{
+	float i = 0.0f;
+	i += this->al.computeIntensity(P, N);
+	i += this->pl.computeIntensity(P, N);
+	return i;
+}
+
+Color Graphics::rayTrace(Point3& D, float t_min, float t_max)
 {
 	float closest_t = this->infinity;
 	Sphere* closests_sphere = nullptr;
@@ -60,14 +88,19 @@ Color Graphics::rayTrace(Point3 D, float t_min, float t_max)
 		}
 
 	}
-	if (closests_sphere == nullptr)
+	// returning color of background
+	if (!closests_sphere)
 	{
-		// should return background color - but i don't have any yet
-		// know instead of returning background color it return 
-		// color of the first sphere in spheres
-		return Color(255, 255, 255);
+		return Color(0, 0, 0);
 	};
-	return closests_sphere->getSphereColor();
+	
+	Point3 temp = D * closest_t;
+	Point3 P = this->camera + temp;
+	Point3 center = closests_sphere->getCenter();
+	Point3 N = P - center;
+	N = N / N.length();
+	return closests_sphere->getSphereColor() * this->computeLighting(P, N);
+	//return closests_sphere->getSphereColor();
 }
 
 void Graphics::render()

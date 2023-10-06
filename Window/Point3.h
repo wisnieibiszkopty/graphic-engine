@@ -16,10 +16,13 @@ public:
 	float getY();
 	float getZ();
 
+	float length();
 	float dot(Point3& point);
 
 	Point3 operator+(Point3& otherPoint);
 	Point3 operator-(Point3& otherPoint);
+	Point3 operator*(float number);
+	Point3 operator/(float number);
 
 };
 

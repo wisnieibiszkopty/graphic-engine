@@ -15,6 +15,7 @@ public:
 	Sphere(Point3& cntr, float rds, Color& clr);
 
 	Color getSphereColor();
+	Point3 getCenter();
 
 	float* intersectRaySphere(Point3 O, Point3 D);
 

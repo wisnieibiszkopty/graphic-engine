@@ -17,6 +17,11 @@ Color Sphere::getSphereColor()
 	return this->color.getColor();
 }
 
+Point3 Sphere::getCenter()
+{
+	return this->center;
+}
+
 float* Sphere::intersectRaySphere(Point3 O, Point3 D)
 {
 	float* t_array = new float[2];
